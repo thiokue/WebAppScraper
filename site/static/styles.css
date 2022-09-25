@@ -1,0 +1,19 @@
+html, #page { padding:0; margin:0;}
+			body { border:#2e1bd8; width: 100%; padding:0; width:100%; color:#959595; font:normal 12px/2.0em system-ui;} 
+			h1, h2, h3, h4, h5, h6 {color:rgb(0, 0, 0);}
+			#page { background:#eee;}
+			#header, #footer, #top-nav, #content, #content #contentbar, #content #sidebar, #widget{ margin:0; padding:0;}
+						
+			#logo { padding:10px; width:auto; float:left;}
+			#logo h1 a, h1 a:hover { color:rgb(58, 14, 160); text-decoration:none;}
+			#logo h1 span { color:#141499;}
+			
+			#header { background:#eee; }
+			#header-inner { margin:0 auto; padding:10px; width:970px;background:#fff;}
+			.feature { background:#eee;padding:0;}
+			.feature-inner { margin:auto;padding:10px;width:970px;background:rgb(71, 30, 148); }
+			.feature-inner h1 {color:#080303;font-size:32px;}
+
+			#content{ margin:0 auto; padding:10px; width:970px;background:rgb(0, 0, 0);}
+			#content-inner { margin:0 auto; padding:10px; width:970px;background:rgb(0, 0, 0);}
+
