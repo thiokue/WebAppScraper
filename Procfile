@@ -1,1 +1,1 @@
-web: gunicorn frasco:app
+web: python frasco.py
