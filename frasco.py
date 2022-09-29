@@ -13,8 +13,8 @@ def devgo_page():
 @app.route('/stackoverflow', methods=("POST", "GET"))
 def stackoverflow_page():
     data = Scraper("https://pt.stackoverflow.com/questions/tagged/")
-    datahtml = pd.DataFrame(data=data.data_scraper_stackoverflow("javascript"))
-    return render_template("stackoverflow.html", stack_data=data.data_scraper_stackoverflow("javascript"), tables=[datahtml.to_html(classes="data")], titles=datahtml.columns.values)
+    datahtml = pd.DataFrame(data=data.data_scraper_stackoverflow("javascript", 5))
+    return render_template("stackoverflow.html", stack_data=data.data_scraper_stackoverflow("javascript", 5), tables=[datahtml.to_html(classes="data")], titles=datahtml.columns.values)
 
 @app.route('/assetto', methods=("POST", "GET"))
 def assetto_page():
@@ -26,10 +26,11 @@ def assetto_page():
 @app.route('/custom',  methods=("POST", "GET"))
 def custom_page():
     tag = request.form.get("tag")
+    n_pags = request.form.get("n_pags")
     data = Scraper("https://pt.stackoverflow.com/questions/tagged/")
-    data = data.data_scraper_stackoverflow(tag=tag)
+    data = data.data_scraper_stackoverflow(tag=tag, n_pags=n_pags)
     datahtml = pd.DataFrame(data=data)
-    return render_template("/custom.html", stack_data=data, tag=tag, tables=[datahtml.to_html(classes="data")], titles=datahtml.columns.values)
+    return render_template("/custom.html", stack_data=data, tag=tag, n_pags=n_pags, tables=[datahtml.to_html(classes="data")], titles=datahtml.columns.values)
 
 
 

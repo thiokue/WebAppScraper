@@ -6,29 +6,27 @@
 		<link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
-		<div id="page">
-			<header id="header">
-				<div id="logo">
+		<div class="page">
+			<header class="header">
+				<div class="logo">
                     <h1><a href="https://webappscraper.herokuapp.com/">Web<span>Scraper</span></a></h1>
 				</div>
-			</header>
-			<div class="banner">
-				<div class="banner-inner">
-				<h2>Posts da DevGo!</h2>
-				</div>
-			</div>
-		
-	
-			<div id="content">
-				<div id="content-inner">
-					<div class="menu">
-						<h3">Outros sites:</h3>
-						<ul>								
+				<div class="menu">
+					<h3">Outros sites:</h3>
+					<ul>								
 						<li><a href="https://webappscraper.herokuapp.com/">DevGo</a></li>
 						<li><a href="https://webappscraper.herokuapp.com/stackoverflow">StackOverflow</a></li>
 						<li><a href="https://webappscraper.herokuapp.com/assetto">AssettoCorsaMods</a></li>
 					</ul>
-					</div>
+				</div>
+			</header>
+			<div class="banner">
+				<div class="banner-inner">
+					<h2>Posts da DevGo!</h2>
+				</div>
+			</div>	
+			<div class="content">
+				<div class="content-inner">
 					<div class="tabela">
 						{% for table in tables %}
 						{{titles[loop.index]}}

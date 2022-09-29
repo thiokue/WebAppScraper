@@ -36,51 +36,62 @@ class Scraper:
 
         return dados_post
 
-    def data_scraper_stackoverflow(self, tag):
+    def data_scraper_stackoverflow(self, tag, n_pags):
         short_url = "https://pt.stackoverflow.com"
-        self.url = self.url + tag
-        pagina = requests.get(self.url)
-        soup = BeautifulSoup(pagina.content, "html.parser")
-
-        titulos = soup.find_all("h3", class_="s-post-summary--content-title")
-        link = [short_url + i.find("a").get("href") for i in titulos]
-        titulos = [i.text for i in titulos]
-        titulos = [i.strip("\n") for i in titulos]
-
-        autor = soup.find_all("div", class_="s-user-card--link d-flex gs4")
-        autor = [i.text for i in autor]
-        autor = [i.strip("\n") for i in autor]
-        autor = [i.title() for i in autor]
-
-        votos_resposta_visitas = soup.find_all("div", class_="s-post-summary--stats-item")
-        votos_resposta_visitas = [i.text for i in votos_resposta_visitas]
-        c = 0
-        votos = []
-        respostas = []
-        visitas = []
-
-        for i in votos_resposta_visitas:
-            if c == 0:
-                votos.append(i)
-                c += 1
-            elif c == 1:
-                respostas.append(i)
-                c += 1
-            else:
-                visitas.append(i)
-                c = 0
-        votos = [i.replace("\n", " ") for i in votos]
-        respostas = [i.replace("\n", " ") for i in respostas]
-        visitas = [i.replace("\n", " ") for i in visitas]
-
+        new_url = self.url + tag
+        
         dados = {
-            "Titulo": [i for i in titulos],
-            "Autor": [i for i in autor],
-            "Respostas": [i for i in respostas],
-            "Votos": [i for i in votos],
-            "Visitas": [i for i in visitas],
-            "Link": [i for i in link],
+        "Titulo": [],
+        "Autor": [],
+        "Respostas": [],
+        "Votos": [],
+        "Visitas": [],
+        "Link": [],
         }
+        
+        for i in range(1, int(n_pags) + 1):
+            newer_url = new_url + f"?tab=newest&page={i}&pagesize=15"
+            pagina = requests.get(newer_url)
+            soup = BeautifulSoup(pagina.content, "html.parser")
+
+
+            titulos = soup.find_all("h3", class_="s-post-summary--content-title")
+            link = [short_url + i.find("a").get("href") for i in titulos]
+            titulos = [i.text for i in titulos]
+            titulos = [i.strip("\n") for i in titulos]
+
+            autor = soup.find_all("div", class_="s-user-card--link d-flex gs4")
+            autor = [i.text for i in autor]
+            autor = [i.strip("\n") for i in autor]
+            autor = [i.title() for i in autor]
+
+            votos_resposta_visitas = soup.find_all("div", class_="s-post-summary--stats-item")
+            votos_resposta_visitas = [i.text for i in votos_resposta_visitas]
+            c = 0
+            votos = []
+            respostas = []
+            visitas = []
+
+            for i in votos_resposta_visitas:
+                if c == 0:
+                    votos.append(i)
+                    c += 1
+                elif c == 1:
+                    respostas.append(i)
+                    c += 1
+                else:
+                    visitas.append(i)
+                    c = 0
+            votos = [i.replace("\n", " ") for i in votos]
+            respostas = [i.replace("\n", " ") for i in respostas]
+            visitas = [i.replace("\n", " ") for i in visitas]
+
+            [dados["Titulo"].append(i) for i in titulos]
+            [dados["Autor"].append(i) for i in autor]
+            [dados["Respostas"].append(i) for i in respostas]
+            [dados["Votos"].append(i) for i in votos]
+            [dados["Visitas"].append(i) for i in visitas]
+            [dados["Link"].append(i) for i in link]
 
         return dados
 
@@ -111,7 +122,4 @@ class Scraper:
                 "Link": [i for i in link]
                 }
         return data
-
-    # def populate(self):
-    #     for i in data:
 
