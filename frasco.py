@@ -13,8 +13,8 @@ def devgo_page():
 @app.route('/stackoverflow', methods=("POST", "GET"))
 def stackoverflow_page():
     data = Scraper("https://pt.stackoverflow.com/questions/tagged/")
-    datahtml = pd.DataFrame(data=data.data_scraper_stackoverflow("javascript", 5))
-    return render_template("stackoverflow.html", stack_data=data.data_scraper_stackoverflow("javascript", 5), tables=[datahtml.to_html(classes="data")], titles=datahtml.columns.values)
+    datahtml = pd.DataFrame(data=data.data_scraper_stackoverflow("javascript", 1))
+    return render_template("stackoverflow.html", stack_data=data.data_scraper_stackoverflow("javascript", 1), tables=[datahtml.to_html(classes="data")], titles=datahtml.columns.values)
 
 @app.route('/assetto', methods=("POST", "GET"))
 def assetto_page():
